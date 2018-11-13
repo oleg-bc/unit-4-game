@@ -53,25 +53,25 @@ targetNumber= setTarget();
     }
   //var numberOptions = [10, 5, 3, 7];
   var numberOptions = [];
-  var setNewCrystalVals = function(numberOptions){
-  numberOptions[0] =  randomIntFromInterval(1,10);
-  numberOptions[1] =  randomIntFromInterval(10,20);
-  numberOptions[2] =  randomIntFromInterval(20,25);
-  numberOptions[3] =  randomIntFromInterval(25,35);
-  console.log("Gem " +numberOptions.indexOf(numberOptions[i]) +" is worth "+numberOptions[i]+" points");
+  var setNewCrystalVals = function(arrayArg){
+        arrayArg[0] =  randomIntFromInterval(1,10);
+        arrayArg[1] =  randomIntFromInterval(10,20);
+        arrayArg[2] =  randomIntFromInterval(20,25);
+        arrayArg[3] =  randomIntFromInterval(25,35);
+        console.log("Gem " +arrayArg.indexOf(arrayArg[i]) +" is worth "+arrayArg[i]+" points");
 
-  for (i=0;i<4;i++){
-      var troubleShootString="Gem " +numberOptions.indexOf(numberOptions[i]) +" is worth "+numberOptions[i]+" points"+"<br>";
-      $(".debug-gem-points").append(troubleShootString);
-  }
-return numberOptions;
+        for (i=0;i<4;i++){
+            var troubleShootString="Gem " +arrayArg.indexOf(arrayArg[i]) +" is worth "+arrayArg[i]+" points"+"<br>";
+            $(".debug-gem-points").append(troubleShootString);
+        }
+        return numberOptions;
 }
 numberOptions=setNewCrystalVals(numberOptions);
 
   // Next we create a for loop to create crystals for every numberOption.
   for (var i = 0; i < numberOptions.length; i++) {
 
-    // For each iteration, we will create an imageCrystal
+    // For each iter create an img
     var imageCrystal = $("<img>");
 
     // First each crystal will be given the class ".crystal-image".
@@ -92,7 +92,7 @@ numberOptions=setNewCrystalVals(numberOptions);
   // This time, our click event applies to every single crystal on the page. Not just one.
   $(".crystal-image").on("click", function() {
 
-    // Determining the crystal's value requires us to extract the value from the data attribute.
+    // Determining the crystal's value requires us to extract  value from data attribute.
     // Using the $(this) keyword specifies that we should be extracting
     // the crystal value of the clicked crystal.
     // Using the .attr("data-crystalvalue") allows us to grab the value out of 
@@ -112,9 +112,10 @@ numberOptions=setNewCrystalVals(numberOptions);
     $(".current-points").text("current points "+currentScore);
 
     if (currentScore == targetNumber) {
+        currentScore=0;
       $(".win-lose").text("you win!");
       wins++;
-//      currentScore=0;
+     
       targetNumber= setTarget();
       $("#number-to-guess").text(targetNumber);
       $(".win").text("wins " + wins);
@@ -123,8 +124,11 @@ numberOptions=setNewCrystalVals(numberOptions);
     }
 
     else if (currentScore >= targetNumber) {
+      currentScore=0;
+      $(".debug-gem-points").text("");  
       $(".win-lose").text("you lose!");
-//      currentScore=0;
+      $(".current-points").text(0);
+      
       losses++;
       targetNumber= setTarget();
       $("#number-to-guess").text(targetNumber);
